@@ -10,8 +10,8 @@ type GasFeePayment @entity(timeseries: true) {
   gasFee: BigInt!
   gasUsed: BigInt!
   gasPrice: BigInt!
-  "Cluster owner emitted by the event"
-  owner: Bytes!
+  "Cluster owner emitted by ClusterBalanceUpdated; null for events without one (e.g. RootCommitted)"
+  owner: Bytes
   txHash: Bytes!
 }
 

@@ -8,9 +8,8 @@ dataSources:
     name: SSVNetwork
     network: mainnet
     source:
-      address: '0xDD9BC35aE942eF0cFa76930954a156B3fF30a4E1'
+      address: "0xDD9BC35aE942eF0cFa76930954a156B3fF30a4E1"
       abi: SSVNetwork
-      # SSVNetwork mainnet deployment block — adjust if you need earlier/later coverage.
       startBlock: 17507487
     mapping:
       kind: ethereum/events
@@ -24,8 +23,13 @@ dataSources:
         - name: SSVNetwork
           file: ./abis/SSVNetwork.json
       eventHandlers:
-        - event: ClusterBalanceUpdated(indexed address,uint64[],indexed uint64,uint32,(uint32,uint64,uint64,bool,uint256))
+        - event: ClusterBalanceUpdated(indexed address,uint64[],indexed
+            uint64,uint32,(uint32,uint64,uint64,bool,uint256))
           handler: handleClusterBalanceUpdated
+          # Required so we can read the transaction receipt (gasUsed) in the handler.
+          receipt: true
+        - event: RootCommitted(indexed bytes32,indexed uint64)
+          handler: handleRootCommitted
           # Required so we can read the transaction receipt (gasUsed) in the handler.
           receipt: true
       file: ./src/mapping.ts
